@@ -30,5 +30,9 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 users: action.users,
             }
+        default:
+            return state;
     }
 }
+
+export default usersReducer;

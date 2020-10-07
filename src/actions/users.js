@@ -4,6 +4,10 @@ export const fetchUsers = () => ({
     type: actionTypes.FETCH_USERS,
 })
 
+export const startFetchUsers = () => ({
+    type: actionTypes.START_FETCH_USERS,
+})
+
 export const setUsers = (users) => ({
     type: actionTypes.SET_USERS,
     users,

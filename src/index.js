@@ -12,6 +12,7 @@ import * as watchers from './sagas/watcher';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducers, composeEnhancers(middlewares));
 sagaMiddleware.run(watchers.watchAuth);
+sagaMiddleware.run(watchers.watchUsers);
 
 ReactDOM.render(
   <React.StrictMode>

@@ -46,7 +46,6 @@ export function* authCheckStateSaga(action) {
             yield put(authActions.authLogout());
         } else {
             yield put(authActions.authSuccess(token));
-            console.log((expirationDate.getTime() - new Date().getTime()) / 60000);
             yield put(authActions.checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 60000));
         }
     }
