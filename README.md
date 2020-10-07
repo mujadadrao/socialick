@@ -1,8 +1,8 @@
 ## Socialick - ReactJS
 
-A simple social app built on Reqres API(<https://reqres.in/>) to solidify ReactJS concepts
+A simple social app built on [Reqres API](https://reqres.in/) to solidify ReactJS concepts
 
-Test it live: <To be deployed yet>
+Test it live: [To be deployed yet]
 
 ### Installation
 - Clone or download the repository
