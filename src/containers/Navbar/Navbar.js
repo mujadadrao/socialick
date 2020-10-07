@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Menu} from 'semantic-ui-react';
 import NavItem from "./NavItem/NavItem";
 import {withRouter} from "react-router-dom";
@@ -11,7 +11,7 @@ const Navbar = (props) => {
     }
 
     const handleAuthButton = () => {
-        if(props.isAuthenticated){
+        if (props.isAuthenticated) {
             props.history.push('/logout');
         } else {
             props.history.push('/auth');
@@ -21,7 +21,7 @@ const Navbar = (props) => {
     return (
         <div>
             <Menu pointing secondary>
-                {props.isAuthenticated ? <NavItem item='home' onClick={handleHome}  /> : null }
+                {props.isAuthenticated ? <NavItem item='home' onClick={handleHome}/> : null}
                 <NavItem item={props.isAuthenticated ? 'logout' : 'authenticate'}
                          onClick={handleAuthButton}
                          position='right'

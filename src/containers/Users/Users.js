@@ -1,20 +1,37 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Card} from 'semantic-ui-react'
 import UserCard from "./UserCard/UserCard";
+import * as usersActions from '../../actions/users';
+import {useDispatch, useSelector} from 'react-redux';
+import Spinner from "../../components/UI/Spinner/Spinner";
 
-const CardExampleGroups = () => (
-    <div className='container'>
-            <br />
-            <Card.Group>
-                <UserCard firstName='Rao'
-                          lastName='Mujadad'
-                          email='mujadadrao@gmail.com'
-                          userId='7'
-                          avatar='https://s3.amazonaws.com/uifaces/faces/twitter/follettkyle/128.jpg'
-                />
-                <br />
-            </Card.Group>
-    </div>
-)
+const Users = () => {
+    const dispatch = useDispatch();
+    const fetchingUsers = useSelector(state => state.users.loading);
+    const users = useSelector(state => state.users.users);
 
-export default CardExampleGroups;
+    useEffect(() => {
+        dispatch(usersActions.fetchUsers());
+    }, [])
+
+    return (
+        <div className='ui grid container'>
+            <br/>
+            {fetchingUsers ? <Spinner/> :
+                <Card.Group>
+                    {users.map(user =>
+                        <UserCard
+                            firstName={user.first_name}
+                            lastName={user.last_name}
+                            email={user.email}
+                            userId={user.id}
+                            avatar={user.avatar}
+                        />
+                    )}
+                    <br/>
+                </Card.Group>}
+        </div>
+    )
+}
+
+export default Users;
