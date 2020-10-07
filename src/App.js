@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect} from 'react';
+import Navbar from "./components/Navbar/Navbar";
+import {connect} from 'react-redux';
+import * as authActions from './actions/auth';
+import Private from "./components/Private/Private";
+import Public from "./components/Public/Public";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = (props) => {
+    useEffect(() => {
+        props.autoSignup();
+    }, [])
+
+    return (
+        <div className="App">
+            <Navbar/>
+            {props.isAuthenticated ? <Private/> : <Public/>}
+        </div>
+    );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        isAuthenticated: state.auth.token !== null,
+    }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        autoSignup: () => dispatch(authActions.authCheckState())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
