@@ -2,7 +2,7 @@
 
 A simple social app built on [Reqres API](https://reqres.in/) to solidify ReactJS concepts
 
-Test it live: [To be deployed yet]
+Test it live: <https://socialick-ea942.web.app>
 
 ### Installation
 - Clone or download the repository
