@@ -7,8 +7,10 @@ import Public from "./components/Public/Public";
 
 const App = (props) => {
     useEffect(() => {
-        props.autoSignup();
-    }, [])
+        if(!props.isAuthenticated){
+            props.autoSignup();
+        }
+    }, [props])
 
     return (
         <div className="App">

@@ -1,15 +1,16 @@
 import {put, delay} from 'redux-saga/effects';
 import axios from 'axios';
 import * as authActions from "../actions/auth";
+import * as usersActions from "../actions/users";
 
 export function* authUserSaga(action) {
     yield put(authActions.authStart());
     let authUrl = 'https://reqres.in/api/login';
     const authData = {
-        email: action.email,
-        password: action.password,
+        email: action.authData.email,
+        password: action.authData.password,
     }
-    if(action.isSignUp){
+    if(action.authData.isSignUp){
         authUrl = 'https://reqres.in/api/register';
     }
     try {
@@ -19,6 +20,13 @@ export function* authUserSaga(action) {
         yield localStorage.setItem('expirationDate', yield new Date(new Date().getTime() + expireInMins * 60000));
         yield put(authActions.authSuccess(response.data.token));
         yield put(authActions.checkAuthTimeout(expireInMins));
+        if(action.authData.isSignUp){
+            const userData = {
+                ...action.authData,
+                userId: response.data.id,
+            }
+            yield put(usersActions.addNewUserInit(userData));
+        }
     } catch(error) {
         yield put(authActions.authFailed());
 
@@ -34,6 +42,7 @@ export function* logoutSaga(action) {
     yield localStorage.removeItem('token');
     yield localStorage.removeItem('expirationDate');
     yield put(authActions.authLogoutSuccess());
+    yield put(usersActions.clearUsersInit());
 }
 
 export function* authCheckStateSaga(action) {

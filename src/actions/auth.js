@@ -36,9 +36,7 @@ export const checkAuthTimeout = (expirationMins) => {
 export const authUser = (authData) => {
     return {
         type: actionTypes.AUTH_USER,
-        email: authData.email,
-        password: authData.password,
-        isSignUp: authData.isSignUp,
+        authData,
     }
 }
 

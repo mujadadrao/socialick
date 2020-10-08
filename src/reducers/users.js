@@ -28,7 +28,17 @@ const usersReducer = (state = initialState, action) => {
         case actionTypes.SET_USERS:
             return {
                 ...state,
-                users: action.users,
+                users: state.users.concat(action.users),
+            }
+        case actionTypes.ADD_NEW_USER:
+            return {
+                ...state,
+                users: state.users.concat(action.userData)
+            }
+        case actionTypes.CLEAR_USERS:
+            return {
+                ...state,
+                users: [],
             }
         default:
             return state;

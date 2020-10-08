@@ -12,7 +12,7 @@ const Users = () => {
 
     useEffect(() => {
         dispatch(usersActions.fetchUsers());
-    }, [])
+    }, [dispatch])
 
     return (
         <div className='ui grid container'>
@@ -21,6 +21,7 @@ const Users = () => {
                 <Card.Group>
                     {users.map(user =>
                         <UserCard
+                            key={user.id}
                             firstName={user.first_name}
                             lastName={user.last_name}
                             email={user.email}
