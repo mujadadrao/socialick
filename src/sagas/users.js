@@ -28,3 +28,19 @@ export function* addNewUserSaga(action) {
 export function* clearUsersSaga(action) {
     yield put(usersAction.clearUsers());
 }
+
+export function* deleteUserSaga(action) {
+    try {
+        let url = `https://reqres.in/api/users/${action.userId}`;
+        const response = yield axios.delete(url);
+        if(response.status === 204) {
+            yield put(usersAction.deleteUser(action.userId));
+            yield put(usersAction.deleteUserSuccess());
+        } else {
+            yield put(usersAction.deleteUserFailed());
+        }
+    } catch(error) {
+        console.log('Error while deleting user: ', error);
+        yield put(usersAction.deleteUserFailed());
+    }
+}

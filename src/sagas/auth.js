@@ -15,15 +15,20 @@ export function* authUserSaga(action) {
     }
     try {
         const response = yield axios.post(authUrl, authData);
+        // Sign up request returns user id 4 which already exists when we fetch users
+        // So hard coding the user id to 10 here to suppress console error
         const expireInMins = 60;
+        const userId = action.authData.isSignUp ? 10 : 4;
         yield localStorage.setItem('token', response.data.token);
+        yield localStorage.setItem('userId', userId.toString());
         yield localStorage.setItem('expirationDate', yield new Date(new Date().getTime() + expireInMins * 60000));
-        yield put(authActions.authSuccess(response.data.token));
+        yield put(authActions.authSuccess(response.data.token, userId));
         yield put(authActions.checkAuthTimeout(expireInMins));
         if(action.authData.isSignUp){
             const userData = {
                 ...action.authData,
-                userId: response.data.id,
+                // userId: response.data.id,
+                userId: userId,
             }
             yield put(usersActions.addNewUserInit(userData));
         }
@@ -41,6 +46,7 @@ export function* checkAuthTimeoutSaga(action) {
 export function* logoutSaga(action) {
     yield localStorage.removeItem('token');
     yield localStorage.removeItem('expirationDate');
+    yield localStorage.removeItem('userId');
     yield put(authActions.authLogoutSuccess());
     yield put(usersActions.clearUsersInit());
 }
@@ -51,10 +57,11 @@ export function* authCheckStateSaga(action) {
         yield put(authActions.authLogout());
     } else {
         const expirationDate = yield new Date(localStorage.getItem('expirationDate'));
+        const userId = yield localStorage.getItem('userId')
         if (expirationDate <= new Date()) {
             yield put(authActions.authLogout());
         } else {
-            yield put(authActions.authSuccess(token));
+            yield put(authActions.authSuccess(token, userId));
             yield put(authActions.checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 60000));
         }
     }

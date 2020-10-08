@@ -39,3 +39,22 @@ export const clearUsersInit = () => ({
 export const clearUsers = () => ({
     type: actionTypes.CLEAR_USERS,
 })
+
+export const deleteUserInit = (userId) => ({
+    type: actionTypes.DELETE_USER_INIT,
+    userId,
+})
+
+export const deleteUserSuccess = () => ({
+    type: actionTypes.DELETE_USER_SUCCESS,
+})
+
+export const deleteUserFailed = () => ({
+    type: actionTypes.DELETE_USER_FAILED,
+})
+
+export const deleteUser = (userId) => ({
+    type: actionTypes.DELETE_USER,
+    userId,
+})
+
