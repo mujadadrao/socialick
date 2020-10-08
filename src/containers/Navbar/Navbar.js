@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import * as authActions from "../../actions/auth";
 
 const Navbar = (props) => {
-    const handleHome = () => {
+    const handleUsers = () => {
         props.history.push('/');
     }
 
@@ -21,7 +21,7 @@ const Navbar = (props) => {
     return (
         <div>
             <Menu pointing secondary>
-                {props.isAuthenticated ? <NavItem item='home' onClick={handleHome}/> : null}
+                {props.isAuthenticated ? <NavItem item='users' onClick={handleUsers}/> : null}
                 <NavItem item={props.isAuthenticated ? 'logout' : 'authenticate'}
                          onClick={handleAuthButton}
                          position='right'
