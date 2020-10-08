@@ -18,5 +18,6 @@ export function* watchUsers() {
         takeEvery(actionTypes.FETCH_USERS, usersSagas.fetchUsersSaga),
         takeEvery(actionTypes.ADD_NEW_USER_INIT, usersSagas.addNewUserSaga),
         takeEvery(actionTypes.CLEAR_USERS_INIT, usersSagas.clearUsersSaga),
+        takeEvery(actionTypes.DELETE_USER_INIT, usersSagas.deleteUserSaga),
     ])
 }
