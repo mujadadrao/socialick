@@ -25,6 +25,6 @@ export function* addNewUserSaga(action) {
     }));
 }
 
-export function* clearUsersSaga(action){
+export function* clearUsersSaga(action) {
     yield put(usersAction.clearUsers());
 }
